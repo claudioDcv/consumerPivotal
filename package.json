@@ -1,3 +1,12 @@
 {
-  "name": "hello-world"
+  "name": "hello-world",
+  "dependencies": {
+    "foreman": "^2.0.0",
+    "pivotaljs": "^1.0.3",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
