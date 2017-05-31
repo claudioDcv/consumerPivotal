@@ -1,5 +1,9 @@
 {
   "name": "hello-world",
+  "scripts": {
+    "start": "nf start",
+    "startdev": "nf run -- $(yarn bin)/nodemon server.js"
+  },
   "dependencies": {
     "foreman": "^2.0.0",
     "pivotaljs": "^1.0.3",
