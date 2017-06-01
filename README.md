@@ -2,14 +2,21 @@
 
 ## Installation
 
+
+- Clone repository
 ```sh
-# Clone repository
 git clone <url-this-project>
-# Install dependencies
+```
+- Install dependencies
+```sh
 yarn install
-# Create .env files and added your Pivotal TOKEN
+```
+- Create .env files and added your Pivotal TOKEN
+```sh
 cp .env.example .env
-# Run application with Node Foreman
+```
+- Run application with Node Foreman
+```sh
 nf start
 ```
 ## Usage
