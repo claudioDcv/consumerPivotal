@@ -3,7 +3,7 @@
 ## Requirements
 
 - yarn v0.21.3
-- node foreman v2.0.0 `npm install -g foreman
+- node foreman v2.0.0 `npm install -g foreman`
 
 ## Installation
 
