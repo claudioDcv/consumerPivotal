@@ -1,8 +1,19 @@
-# consumerPivotal
+# Pivotal Report
 
-- in `sh` files change `yourApiToken` to your api token
-- init with nodejs `node server.js`
-    -   default port `8899`
-- Consumer pitoval with this request `http://localhost:8899/?label=API&project_id=123123`
-    - `label`: name label
-    - `project_id`: unique id project
+## Installation
+
+```sh
+# Clone repository
+git clone <url-this-project>
+# Install dependencies
+yarn install
+# Create .env files and added your Pivotal TOKEN
+cp .env.example .env
+# Run application with Node Foreman
+nf start
+```
+## Usage
+
+```sh
+curl http://localhost:8899/?project_id={PROJECT_ID}&label={LABEL}
+```
