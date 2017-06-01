@@ -1,5 +1,9 @@
 # Pivotal Report
 
+## Requirements
+
+- yarn v0.21.3
+
 ## Installation
 
 
