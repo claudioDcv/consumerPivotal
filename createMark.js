@@ -52,7 +52,7 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
     // console.log(epicsClean);
 
     //MD
-    var out = '';
+    var out = '\n### AYER\n\n### HOY\n';
     var htmlOut = '';
     for (var v in epicsClean) {
         if (epicsClean.hasOwnProperty(v)) {
@@ -73,7 +73,7 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
 
                     // mdStorys += `* ${story.name} [#${story.id}](${story.url}) - ${story.current_state} / ${story.estimate || 'No Estimado'} Puntos | Tipo \`${story.kind}\`\n`;
 
-                    mdStorys += `* ${story.name} [#${story.id}](${story.url})\n`;
+                    mdStorys += `- ${story.name} [#${story.id}](${story.url})\n`;
 
                     htmlStorys += `<li><span class="${mapState[story.current_state]}">${story.current_state}</span> <strong>${story.name}</strong> <a href="${story.url}" target="_blank">[#${story.id}]</a> / ${story.estimate || '<span class="bg-danger">No Estimado</span>'} Puntos\n | Tipo ${story.kind}</li>`;
                 }
@@ -85,7 +85,13 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
         }
     }
 
-    return htmlStart + `<div class="container"><div class="row"><div class="col-md-12"><h3>Reporte Diario <small>label: ${QUERYLABEL}</small></h3><br/>` + htmlOut + `<pre>${out}</pre></div></div></div>` + htmlEnd;
+    const styleCSS = `
+    style="    width: 100%;
+    border: solid 1px #adadad;
+    border-radius: 5px;
+    padding: 5px;
+    "`;
+    return htmlStart + `<div class="container"><div class="row"><div class="col-md-12"><h3>Reporte Diario <small>label: ${QUERYLABEL}</small></h3><br/>` + htmlOut + `<textarea class"form-control" ${styleCSS}>${out}</textarea></div></div></div>` + htmlEnd;
 }
 
 exports.createMark =  createMark;

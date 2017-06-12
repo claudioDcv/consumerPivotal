@@ -2,8 +2,7 @@
 
 ## Requirements
 
-- yarn v0.21.3
-- node foreman v2.0.0 `npm install -g foreman`
+- yarn
 
 ## Installation
 
@@ -22,7 +21,7 @@ cp .env.example .env
 ```
 - Run application with Node Foreman
 ```sh
-nf start
+$(npm bin)/nf start
 ```
 ## Usage
 
