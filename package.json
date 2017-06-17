@@ -2,7 +2,7 @@
   "name": "hello-world",
   "scripts": {
     "start": "nf start",
-    "startdev": "nf run -- $(yarn bin)/nodemon server.js"
+    "dev": "nf run -- $(yarn bin)/nodemon index.js"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
