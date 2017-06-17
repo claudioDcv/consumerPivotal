@@ -1,21 +1,80 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Pivotal Reports</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="colspan-xs-12">
-          <div class="jumbotron">
-            <h1>Pivotal Reports</h1>
-            <a href="reports/daily" class="btn btn-default">Daily report</a>
-            <a href="reports/weekly" class="btn btn-default">Weekly report</a>
-          </div>
-        </div>
-      </div>
+{% extends "layout.html" %}
+
+{% block main %}
+  <form action="" class="form-inline" id="form-report">
+    <div class="form-group">
+      <label class="sr-only">Project</label>
+      <select class="form-control" name="project_id" id="project">
+        <option value="" selected>[ select a project ]</option>
+        {% for item in projects %}
+        <option value="{{ item.id }}">{{ item.name }}</option>
+        {% endfor %}
+      </select>
     </div>
-  </body>
-</html>
+
+    <div class="form-group">
+      <label class="sr-only">Label</label>
+      <select class="form-control" name="label" id="label" disabled="disabled">
+        <option value="" selected>[ select a label ]</option>
+      </select>
+    </div>
+
+    <button type="button" id="btn-generate-daily-report" class="btn btn-default">Generate Daily Report</button>
+    <button type="button" id="btn-generate-weekly-report" class="btn btn-default">Generate Weekly Report</button>
+  </form>
+
+  <div id="result"></div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script type="text/javascript">
+    $(function () {
+      $('#project').on('change', onProjectChange);
+      $('#btn-generate-daily-report').on('click', onGenerateDailyReport);
+      $('#btn-generate-weekly-report').on('click', onGenerateWeeklyReport);
+
+      function onProjectChange(e) {
+        var $project = $(this);
+        var project_id = $project.val();
+        var $label = $('#label');
+
+        if ('' === project_id) {
+          $label.prop('disabled', true);
+          return;
+        }
+
+        var xhr = pivotal.getLabels(project_id);
+
+        xhr.then(function (labels) {
+          $label
+            .html(labels.map(function (label) {
+              return '<option value="' + label.name + '" data-id="' + label.id + '">' + label.name + '</option>';
+            }).join(''))
+            .prop('disabled', false)
+          ;
+        });
+      }
+
+      function onGenerateDailyReport(e) {
+        var $form = $('#form-report');
+        var $result = $('#result');
+        var $project = $('#project');
+        var project_id = $project.val();
+        var $label = $('#label');
+
+        $result.html('<iframe src="/reports/daily?' + $form.serialize() + '">');
+
+        // var xhr = $.ajax({
+        //   url: '/reports/daily',
+        //   data: $form.serialize(),
+        // });
+        // xhr.then(function (response) {
+        //   console.log(response);
+        // });
+      }
+
+      function onGenerateWeeklyReport(e) {}
+    });
+  </script>
+{% endblock %}
