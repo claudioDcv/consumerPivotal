@@ -22,6 +22,11 @@ function Pivotal(api_token) {
       };
   };
 
+  this.getMe = function () {
+    let options = this.getOptions('/me');
+    return rp(options);
+  };
+
   this.getProjects = function (params) {
     let options = this.getOptions('/projects');
     return rp(options);
