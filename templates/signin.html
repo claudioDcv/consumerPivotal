@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<form class="form-inline" action="" method="post">
+  <div class="form-group">
+    <label for="pivotalToken">Pivotal Token</label>
+    <input type="text" class="form-control" id="pivotalToken" name="pivotalToken" placeholder="Pivotal Token">
+  </div>
+  <button type="submit" class="btn btn-primary" name="sigin"><i class="fa fa-sign-in"></i> Sign in</button>
+</form>
+<p class="help-block">Obtain token on: <a href="https://www.pivotaltracker.com/profile">https://www.pivotaltracker.com/profile</a></p>
+{% endblock %}
