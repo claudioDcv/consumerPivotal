@@ -10,9 +10,12 @@ const createMark = require('./createMark.js');
 const Pivotal = require('./pivotal-api-client');
 const utils = require('./utils');
 
+const controllersIndex = require('./controllers/index');
 const controllersReports = require('./controllers/reports');
 const controllersApi = require('./controllers/api');
 const controllersAuth = require('./controllers/authentication');
+
+const middlewares = require('./middlewares');
 
 
 const PORT = process.env.PORT || 8899;
@@ -38,30 +41,13 @@ nunjucks.configure('templates', {
 });
 
 
-app.use(function (req, res, next) {
-  if ((!('pivotalToken' in req.signedCookies) || !req.signedCookies.pivotalToken) && '/signin' !== req.originalUrl) {
-    res.redirect('/signin');
-  } else {
-    if (!('pivotal' in req.app.locals) || req.app.locals.pivotal instanceof Pivotal) {
-      req.app.locals.pivotal = new Pivotal(req.signedCookies.pivotalToken);
-    }
-    next();
-  }
-});
+app.use(middlewares.pivotalCookie);
 
-app.get('/', function (req, res) {
-  req.app.locals.pivotal.getProjects()
-    .then(function (response) {
-      res.render('index.html', {
-        projects: response,
-      });
-    });
-});
 
+app.use('/', controllersIndex);
 app.use('/reports', controllersReports);
 app.use('/api', controllersApi);
 app.use('/', controllersAuth);
-
 
 
 app.listen(PORT, function () {
