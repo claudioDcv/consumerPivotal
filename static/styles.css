@@ -1,13 +1,20 @@
 #result iframe {
-  width: 100%;
-  margin-top: 30px;
-  border: none;
-  height: 600px;
+    width: 100%;
+    margin-top: 30px;
+    border: none;
+    height: 600px;
 }
 
 textarea.markdown {
-  width: 100%;
-  border: solid 1px #adadad;
-  border-radius: 5px;
-  padding: 5px;
+    width: 100%;
+    border: solid 1px #dddddd;
+    border-radius: 0 0 5px 5px;
+    padding: 15px;
+    border-top: 0;
+}
+.tab-pane .well{
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    background: white;
+    box-shadow: none;
 }

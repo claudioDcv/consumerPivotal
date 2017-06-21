@@ -29,41 +29,63 @@
 {% block javascripts %}
   {{ super() }}
   <script type="text/javascript">
-    $(function () {
-      $('#project').on('change', onProjectChange);
-      $('#btn-generate-daily-report').on('click', onGenerateDailyReport);
-      $('#btn-generate-weekly-report').on('click', onGenerateWeeklyReport);
+    function clearInner(node) {
+        while (node.hasChildNodes()) {
+            clear(node.firstChild);
+        }
+    }
+
+    function clear(node) {
+        while (node.hasChildNodes()) {
+          clear(node.firstChild);
+        }
+        node.parentNode.removeChild(node);
+        // console.log(node, "cleared!");
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      document.getElementById('project').addEventListener('change', onProjectChange, false);
+      document.getElementById('btn-generate-daily-report').addEventListener(
+          'click', onGenerateDailyReport,false);
 
       function onProjectChange(e) {
-        var $project = $(this);
-        var project_id = $project.val();
-        var $label = $('#label');
-
-        if ('' === project_id) {
-          $label.prop('disabled', true);
-          return;
-        }
+        var elem = e.target;
+        var project_id = elem.value || elem.options[elem.selectedIndex].value;
+        console.log(project_id);
+        var select_label = document.getElementById('label');
+        if ('' === project_id) return select_label.disabled = true;
 
         var xhr = pivotal.getLabels(project_id);
-
         xhr.then(function (labels) {
-          $label
-            .html(labels.map(function (label) {
-              return '<option value="' + label.name + '" data-id="' + label.id + '">' + label.name + '</option>';
-            }).join(''))
-            .prop('disabled', false)
-          ;
+            clearInner(select_label);
+            var option = document.createElement('option');
+            var txt = document.createTextNode('[ select a label ]');
+            option.appendChild(txt);
+            option.selected = true;
+            option.disabled = true;
+            select_label.appendChild(option);
+
+            Object.keys(labels).forEach(function(i){
+              var label = labels[i];
+              var option = document.createElement('option');
+              var txt = document.createTextNode(label.name);
+              option.value = label.name;
+              option.dataset.id = label.id;
+              option.appendChild(txt);
+              select_label.appendChild(option);
+            });
+            label.disabled = false;
         });
       }
 
       function onGenerateDailyReport(e) {
-        var $form = $('#form-report');
-        var $result = $('#result');
-        var $project = $('#project');
-        var project_id = $project.val();
-        var $label = $('#label');
+        var result = document.getElementById('result');
+        var project = document.getElementById('project');
+        var project_id = project.value;
+        var select_label = document.getElementById('label');
+        var query = 'project_id=' + project_id + '&label=' + select_label.value;
 
-        $result.html('<iframe src="/reports/daily?' + $form.serialize() + '">');
+        result.innerHTML = '<iframe src="/reports/daily?' + query + '">';
 
         // var xhr = $.ajax({
         //   url: '/reports/daily',
