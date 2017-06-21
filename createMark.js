@@ -7,7 +7,7 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
 		<head>
 			<meta charset="utf-8">
 			<title>Reporte Diario - label: ${QUERYLABEL}</title>
-			<style>${STYLE}</style>
+      <link rel="stylesheet" href="/static/claudio.css" />
 		</head>
 		<body>
 	`;
@@ -24,8 +24,8 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
         'unscheduled': 'btn btn-unscheduled btn-sm btn-tag',
         'started': 'btn btn-primary btn-sm btn-tag',
     };
-    var epics = JSON.parse(epicsOut)
-    var storys = JSON.parse(storyOut)
+    var epics = epicsOut;
+    var storys = storyOut;
     var epicsClean = {};
     for (var i = 0; i < epics.length; i++) {
         epicsClean[epics[i].label.name] = {
@@ -91,7 +91,7 @@ const createMark = function t(storyOut, epicsOut, QUERYLABEL) {
     border-radius: 5px;
     padding: 5px;
     "`;
-    return htmlStart + `<div class="container"><div class="row"><div class="col-md-12"><h3>Reporte Diario <small>label: ${QUERYLABEL}</small></h3><br/>` + htmlOut + `<textarea class"form-control" ${styleCSS}>${out}</textarea></div></div></div>` + htmlEnd;
+    return htmlStart + `<div class="container"><div class="row"><div class="col-md-12"><h3>Reporte Diario <small>label: ${QUERYLABEL}</small></h3><br/>` + htmlOut + `<textarea class"form-control" rows="20" ${styleCSS}>${out}</textarea></div></div></div>` + htmlEnd;
 }
 
 exports.createMark =  createMark;

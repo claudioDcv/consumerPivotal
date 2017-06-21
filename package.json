@@ -2,10 +2,18 @@
   "name": "hello-world",
   "scripts": {
     "start": "nf start",
-    "startdev": "nf run -- $(yarn bin)/nodemon server.js"
+    "dev": "nf run -- $(yarn bin)/nodemon index.js"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
     "foreman": "^2.0.0",
+    "jquery": "^3.2.1",
+    "marked": "^0.3.6",
+    "nunjucks": "^3.0.1",
     "pivotaljs": "^1.0.3",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
