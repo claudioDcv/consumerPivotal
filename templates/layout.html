@@ -5,6 +5,7 @@
   <link href="/static/select2-4.0.3/dist/css/select2.min.css" rel="stylesheet">
   <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/static/styles.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock %}
 
 {% block javascripts %}
@@ -19,23 +20,30 @@
 {% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/"><i class="fa fa-file-text-o"></i> Pivotal Tracker Reports</a>
-    </div>
+<div id="container">
+<div class="principal">
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/"><img class="logo" src="/static/logo.png" alt="logo claudio.dcv"> Pivotal Tracker Reports</a>
+        </div>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/signout"><i class="fa fa-sign-out"></i> Sign out</a></li>
-    </ul>
-  </div>
-</nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/signout"><i class="fa fa-sign-out"></i> Sign out</a></li>
+        </ul>
+      </div>
+    </nav>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      {% block main %}{% endblock %}
-    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          {% block main %}{% endblock %}
+        </div>
+      </div>
   </div>
+</div>
+<footer>
+    create by: <a href="https://github.com/claudioDcv">claudioDcv</a> & <a href="https://github.com/jesusgoku">jesusgoku</a>
+</footer>
 </div>
 {% endblock %}
