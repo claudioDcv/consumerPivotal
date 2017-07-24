@@ -10,7 +10,7 @@ const utils = require('./utils');
 const marked = require('marked');
 
 
-const PORT = process.env.PORT || 8899;
+const PORT = process.env.PORT || 5000;
 const DEBUG = process.env.NODE_DEBUG || true;
 const SECRET = process.env.SECRET || 'pIvOtAltrAckEr';
 const COOKIE_MAX_AGE = process.env.COOKIE_MAX_AGE || 60 * 60 * 24 * 365; // Seconds
