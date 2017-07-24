@@ -29,6 +29,7 @@
 {% block javascripts %}
   {{ super() }}
   <script type="text/javascript">
+    console.log(1);
     function clearInner(node) {
         while (node.hasChildNodes()) {
             clear(node.firstChild);
@@ -42,9 +43,13 @@
         node.parentNode.removeChild(node);
         // console.log(node, "cleared!");
     }
+    // $('#select2-label-container').select2(
+    //     {data: function() {
+    //         return {results:data};
+    //     }});
 
     document.addEventListener("DOMContentLoaded", function(event) {
-      document.getElementById('project').addEventListener('change', onProjectChange, false);
+      // document.getElementById('project').addEventListener('change', onProjectChange, false);
       document.getElementById('btn-generate-daily-report').addEventListener(
           'click', onGenerateDailyReport,false);
 
@@ -77,6 +82,8 @@
             label.disabled = false;
         });
       }
+
+      $('#project').on('change',onProjectChange);
 
       function onGenerateDailyReport(e) {
         var result = document.getElementById('result');
