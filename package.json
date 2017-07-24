@@ -1,5 +1,5 @@
 {
-  "name": "pivotal consumer",
+  "name": "pivotalconsumer",
   "scripts": {
     "start": "nf start",
     "dev": "nf run -- $(yarn bin)/nodemon index.js"
