@@ -21,8 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use('/static/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/static/select2', express.static(__dirname + '/node_modules/select2/dist'));
 app.use('/static/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/static/font-awesome', express.static(__dirname + '/node_modules/font-awesome'));
+app.use('/static/load-awesome', express.static(__dirname + '/node_modules/load-awesome'));
 app.use('/static', express.static(__dirname + '/static'));
 
 
