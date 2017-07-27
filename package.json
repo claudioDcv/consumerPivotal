@@ -12,6 +12,7 @@
     "font-awesome": "4.7.0",
     "foreman": "2.0.0",
     "jquery": "3.2.1",
+    "load-awesome": "https://github.com/danielcardoso/load-awesome",
     "marked": "0.3.6",
     "nunjucks": "3.0.1",
     "pivotaljs": "1.0.3",
