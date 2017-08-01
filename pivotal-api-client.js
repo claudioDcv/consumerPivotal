@@ -38,9 +38,19 @@ function Pivotal(api_token) {
   };
 
   this.getStories = function (project_id, params) {
-    let options = this.getOptions('/projects/' + String(project_id) + '/stories', {
-      with_label: params.label,
-    });
+    const query = {};
+
+    if (params.label) {
+      let label = params.label.split(',').map(s => s.trim());
+  
+      if (label.length === 1) {
+        query.with_label = label[0];
+      } else {
+        query.filter = label.map(s => `label:${s}`).join(' OR ')
+      }
+    }
+
+    const options = this.getOptions('/projects/' + String(project_id) + '/stories', query);
     return rp(options);
   };
 

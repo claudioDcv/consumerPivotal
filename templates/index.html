@@ -1,109 +1,50 @@
 {% extends "layout.html" %}
 
 {% block main %}
-  <form action="" class="form-inline" id="form-report">
-    <div class="form-group">
-      <label class="sr-only">Project</label>
-      <select class="form-control" name="project_id" id="project">
-        <option value="" selected>[ select a project ]</option>
-        {% for item in projects %}
-        <option value="{{ item.id }}">{{ item.name }}</option>
-        {% endfor %}
-      </select>
+  <div class="row">
+    <div class="col-xs-12">
+      <form action="" class="form-inline" id="form-report">
+        <div class="form-group">
+          <label class="sr-only">Project</label>
+          <select class="form-control" name="project_id" id="project" required>
+            <option value="" selected>[ select a project ]</option>
+            {% for item in projects %}
+            <option value="{{ item.id }}">{{ item.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="sr-only">Label</label>
+          <select class="form-control" name="label" id="label" disabled="disabled" required multiple>
+            <option value="" selected>[ select a label ]</option>
+          </select>
+        </div>
+
+        <button type="submit" id="btn-generate-daily-report" class="btn btn-default"><i class="fa fa-cog"></i> Generate Daily Report</button>
+        {# <button type="button" id="btn-generate-weekly-report" class="btn btn-default">Generate Weekly Report</button>#}
+
+        <div class="form-group">
+
+          <div id="loading" class="la-ball-climbing-dot">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label class="sr-only">Label</label>
-      <select class="form-control" name="label" id="label" disabled="disabled">
-        <option value="" selected>[ select a label ]</option>
-      </select>
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="result"></div>
     </div>
-
-    <button type="button" id="btn-generate-daily-report" class="btn btn-default"><i class="fa fa-cog"></i> Generate Daily Report</button>
-    {# <button type="button" id="btn-generate-weekly-report" class="btn btn-default">Generate Weekly Report</button>#}
-  </form>
-
-  <div id="result"></div>
+  </div>
 {% endblock %}
 
 {% block javascripts %}
   {{ super() }}
-  <script type="text/javascript">
-    console.log(1);
-    function clearInner(node) {
-        while (node.hasChildNodes()) {
-            clear(node.firstChild);
-        }
-    }
-
-    function clear(node) {
-        while (node.hasChildNodes()) {
-          clear(node.firstChild);
-        }
-        node.parentNode.removeChild(node);
-        // console.log(node, "cleared!");
-    }
-    // $('#select2-label-container').select2(
-    //     {data: function() {
-    //         return {results:data};
-    //     }});
-
-    document.addEventListener("DOMContentLoaded", function(event) {
-      // document.getElementById('project').addEventListener('change', onProjectChange, false);
-      document.getElementById('btn-generate-daily-report').addEventListener(
-          'click', onGenerateDailyReport,false);
-
-      function onProjectChange(e) {
-        var elem = e.target;
-        var project_id = elem.value || elem.options[elem.selectedIndex].value;
-        console.log(project_id);
-        var select_label = document.getElementById('label');
-        if ('' === project_id) return select_label.disabled = true;
-
-        var xhr = pivotal.getLabels(project_id);
-        xhr.then(function (labels) {
-            clearInner(select_label);
-            var option = document.createElement('option');
-            var txt = document.createTextNode('[ select a label ]');
-            option.appendChild(txt);
-            option.selected = true;
-            option.disabled = true;
-            select_label.appendChild(option);
-
-            Object.keys(labels).forEach(function(i){
-              var label = labels[i];
-              var option = document.createElement('option');
-              var txt = document.createTextNode(label.name);
-              option.value = label.name;
-              option.dataset.id = label.id;
-              option.appendChild(txt);
-              select_label.appendChild(option);
-            });
-            label.disabled = false;
-        });
-      }
-
-      $('#project').on('change',onProjectChange);
-
-      function onGenerateDailyReport(e) {
-        var result = document.getElementById('result');
-        var project = document.getElementById('project');
-        var project_id = project.value;
-        var select_label = document.getElementById('label');
-        var query = 'project_id=' + project_id + '&label=' + select_label.value;
-
-        result.innerHTML = '<iframe src="/reports/daily?' + query + '">';
-
-        // var xhr = $.ajax({
-        //   url: '/reports/daily',
-        //   data: $form.serialize(),
-        // });
-        // xhr.then(function (response) {
-        //   console.log(response);
-        // });
-      }
-
-      function onGenerateWeeklyReport(e) {}
-    });
-  </script>
+  <script src="/static/app.js"></script>
 {% endblock %}

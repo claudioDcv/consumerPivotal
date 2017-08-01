@@ -12,11 +12,13 @@
     "font-awesome": "4.7.0",
     "foreman": "2.0.0",
     "jquery": "3.2.1",
+    "load-awesome": "https://github.com/danielcardoso/load-awesome",
     "marked": "0.3.6",
     "nunjucks": "3.0.1",
     "pivotaljs": "1.0.3",
     "request": "2.81.0",
-    "request-promise": "4.2.1"
+    "request-promise": "4.2.1",
+    "select2": "^4.0.3"
   },
   "devDependencies": {
     "nodemon": "1.11.0"
